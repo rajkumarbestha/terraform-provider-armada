@@ -11,18 +11,10 @@ import (
 	"net/http"
 )
 
-type Numverify struct {
-	Valid               bool   `json:"valid"`
-	Number              string `json:"number"`
-	LocalFormat         string `json:"local_format"`
-	InternationalFormat string `json:"international_format"`
-	CountryPrefix       string `json:"country_prefix"`
-	CountryCode         string `json:"country_code"`
-	CountryName         string `json:"country_name"`
-	Location            string `json:"location"`
-	Carrier             string `json:"carrier"`
-	LineType            string `json:"line_type"`
+type RequestID struct {
+	ReqID string `json:"requestID"`
 }
+
 
 func main() {
 	opts := plugin.ServeOpts{
@@ -55,14 +47,14 @@ func providerSchema() map[string]*schema.Schema {
 // More info here https://github.com/hashicorp/terraform/blob/v0.6.6/helper/schema/resource.go#L17-L81
 func providerResources() map[string]*schema.Resource {
 	return map[string]*schema.Resource{
-		"numverify_API": &schema.Resource{
+		"fakeserver_API": &schema.Resource{
 			SchemaVersion: 1,
 			Create:        createFunc,
 			Read:          readFunc,
 			Update:        updateFunc,
 			Delete:        deleteFunc,
 			Schema: map[string]*schema.Schema{ // List of supported configuration fields for your resource
-				"mobile_number": &schema.Schema{
+				"service": &schema.Schema{
 					Type:     schema.TypeString,
 					Required: true,
 				},
@@ -70,7 +62,7 @@ func providerResources() map[string]*schema.Resource {
 					Type:     schema.TypeString,
 					Required: true,
 				},
-				"hey": &schema.Schema{
+				"req_id": &schema.Schema{
 					Type: schema.TypeString,
 					Computed: true,
 				},
@@ -90,7 +82,7 @@ func providerResources() map[string]*schema.Resource {
 // imply that something went wrong with the modification of the resource and it
 // will prevent the execution of further calls that depend on that resource
 // that failed to be created/updated/deleted.
-
+var save string
 func createFunc(d *schema.ResourceData, meta interface{}) error {
 	file, err := os.OpenFile("info.log", os.O_CREATE|os.O_APPEND, 0666)
 	 if err != nil {
@@ -99,16 +91,13 @@ func createFunc(d *schema.ResourceData, meta interface{}) error {
 	defer file.Close()
 	log.SetOutput(file)
 	log.Printf("Terraform apply command given and control is in resource create function \r\n")
-	mobile_number := d.Get("mobile_number").(string)
+	service := d.Get("service").(string)
 	access_key := d.Get("access_key").(string)
 
-	log.Printf("Mobile number from TF: %s \r\n", mobile_number)
-	log.Printf("Access Key from TF: %s \r\n", access_key)
 	// QueryEscape escapes the phone string so
 	// it can be safely placed inside a URL query
 	//safePhone := url.QueryEscape(phone)
-
-	url := fmt.Sprintf("http://apilayer.net/api/validate?access_key=%s&number=%s", access_key, mobile_number)
+	url := fmt.Sprintf("http://localhost:5000?service=%s&access_key=%s", service , access_key)
 
 	// Build the request
 	req, err := http.NewRequest("GET", url, nil)
@@ -116,7 +105,6 @@ func createFunc(d *schema.ResourceData, meta interface{}) error {
 		log.Fatal("NewRequest: ", err)
 		//return
 	}
-	log.Printf("Num Verify request created \r\n")
 	// For control over HTTP client headers,
 	// redirect policy, and other settings,
 	// create a Client
@@ -126,7 +114,6 @@ func createFunc(d *schema.ResourceData, meta interface{}) error {
 	// Send the request via a client
 	// Do sends an HTTP request and
 	// returns an HTTP response
-	log.Printf("Hitting Num Verify API : %s \r\n", url)
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal("Do: ", err)
@@ -140,7 +127,7 @@ func createFunc(d *schema.ResourceData, meta interface{}) error {
 	defer resp.Body.Close()
 
 	// Fill the record with the data from the JSON
-	var record Numverify
+	var record RequestID
 
 	// Use json.Decode for reading streams of JSON data
 	if err := json.NewDecoder(resp.Body).Decode(&record); err != nil {
@@ -148,19 +135,16 @@ func createFunc(d *schema.ResourceData, meta interface{}) error {
 	}
 	log.Printf("Printing the Response received. \r\n")
 
-	log.Printf("Mobile Number = %s \r\n", record.InternationalFormat)
-	log.Printf("Country   = %s \r\n", record.CountryName)
-	log.Printf("Location  = %s \r\n", record.Location)
-	log.Printf("Carrier   = %s \r\n", record.Carrier)
-	log.Printf("LineType  = %s \r\n", record.LineType)
+	log.Printf("Mobile Number = %s \r\n", record.ReqID)
 
+	save = record.ReqID
 	d.SetId("h")
 	return readFunc(d, meta)
 }
 
 func readFunc(d *schema.ResourceData, meta interface{}) error {
 	//hi := "heyy"
-	d.Set("hey", "hi")
+	d.Set("req_id", save)
 	return nil
 }
 
