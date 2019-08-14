@@ -2,10 +2,10 @@ provider "fakeserver"{
 }
 
 resource "fakeserver_API" "API" {
-  service = "RDS"
-  access_key = "2346abfccbbf1f028b7db6afecbc14c5"
+  name = "Rajkumar"
+  job = "Associate Engineer"
 }
 
-output "request_ID_from_API" {
+output "ID" {
 	value = ["${fakeserver_API.API.*.req_id}"]
 }
