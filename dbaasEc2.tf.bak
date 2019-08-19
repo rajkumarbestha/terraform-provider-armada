@@ -1,4 +1,6 @@
 provider "dbaas"{
+  access_key = "AKIAXHNPE2JC5BIJQ5SB"
+  secret_key = "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"
 }
 
 resource "dbaas_EC2" "dev_ec2" {
