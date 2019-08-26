@@ -1,7 +1,7 @@
-provider "dbaas"{
+provider "armada"{
 }
 
-resource "dbaas_EC2" "dev_ec2" {
+resource "armada_EC2" "dev_ec2" {
   aws_region = "us-east-1"
   version = "1.0"
   action= "create"
