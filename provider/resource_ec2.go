@@ -138,7 +138,6 @@ func createEC2(d *schema.ResourceData, meta interface{}) error {
 	ec2CreateJson, err := json.Marshal(ec2CreateReq)
 	log.Printf("Json Obtained %s", string(ec2CreateJson))
 
-	//endpoint := "https://1w3zqo2l9i.execute-api.us-east-1.amazonaws.com/default/python_lambda"
 	endpoint := "https://dv2-api.dbaas.aenetworks.com/aws/ec2/create"
 	endpoint_from_tf := d.Get("endpoint").(string)
 	if len(endpoint_from_tf) > 0 {
