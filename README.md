@@ -15,12 +15,11 @@ If you wish to work on the provider, you'll first need [Go](http://www.golang.or
 
 Clone repository to: `somepath/development/terraform-providers/`
 
-```sh
-$ mkdir -p somepath/development/terraform-providers/; cd somepath/development/terraform-providers/
-$ git clone git@github.com:terraform-providers/terraform-provider-aws
-...
 ```
-To compile the provider, run the below command. This will build the provider and put the provider binary in the current directory.
+mkdir -p somepath/development/terraform-providers/; cd somepath/development/terraform-providers/
+git clone https://github.com/rajkumarbestha/terraform-provider-customplugin.git
+```
+To compile the provider, enter the provider directory in the repo and run the below command. This will build the provider and put the provider binary in the current directory.
 
 ```
 go build -o terraform-provider-armada.exe
