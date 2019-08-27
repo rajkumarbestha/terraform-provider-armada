@@ -1,6 +1,6 @@
 provider "armada"{
-	access_key = "" //required
-  secret_key = "" //required
+  access_key = "" //required, Can be given at run time also.
+  secret_key = "" //required, Can be given at run time also.
 }
 
 resource "armada_EC2" "dev_ec2" {
@@ -25,4 +25,5 @@ resource "armada_EC2" "dev_ec2" {
 
 output "request_ID" {
 	value = ["${dbaas_EC2.dev_ec2.*.service_request_id_out}"]
+	// service_request_id_out is a computed variable
 }
