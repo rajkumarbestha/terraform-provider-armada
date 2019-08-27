@@ -39,5 +39,12 @@ To instead use a custom-built provider (as above) in your Terraform environment 
 
 For either installation method, documentation about the provider specific configuration options can be found on the [provider's website](https://www.terraform.io/docs/providers/aws/index.html).
 
+Contributing
+---------------------------
+
+Terraform is the work of thousands of contributors. We appreciate your help!
+
+To contribute, please reach out to Rasheed/Rajkumar.
+
 
 
