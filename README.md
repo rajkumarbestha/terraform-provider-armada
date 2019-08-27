@@ -17,7 +17,7 @@ Clone repository to: `somepath/development/terraform-providers/`
 
 ```
 mkdir -p somepath/development/terraform-providers/; cd somepath/development/terraform-providers/
-git clone https://github.com/rajkumarbestha/terraform-provider-customplugin.git
+git clone https://github.com/rajkumarbestha/terraform-provider-armada.git
 ```
 To compile the provider, enter the provider directory in the repo and run the below command. This will build the provider and put the provider binary in the current directory.
 
