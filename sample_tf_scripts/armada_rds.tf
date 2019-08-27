@@ -18,7 +18,7 @@ resource "armada_rds" "dev_rds" {
   request_created_date = "2019-08-26T09:35:41.707Z" //required
   request_raised_by ="rajkumarb@aenetworks.com" //required
   purpose = "Terraform Plugin Testing" //required
-  endpoint = "" //required
+  endpoint = "" //optional
 }
 
 output "rds_request_ID" {
