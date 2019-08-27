@@ -1,25 +1,26 @@
 provider "armada"{
+	access_key = "" //required
+  secret_key = "" //required
 }
 
 resource "armada_EC2" "dev_ec2" {
-  aws_region = "us-east-1"
-  version = "1.0"
-  action= "create"
-  application_code = "DBA"
-  environment = "dev"
-  request_type_id = "6"
-  db_instance_type = "t2.medium"
-  request_from = "1"
-  source_server_name = "sourceserver"
-  destination_server = "destinationserver"
-  source_database_name = "sourcedatabase"
-  destination_database_name = "destinationdatabase"
-  dbs_dbnameto_restore = "db"
-  service_account = "iybfayw64yfb"
-  server_type = "dbs"
-  edrive_size = "100"
-  request_raised_by ="rajkumar"
-  purpose = "testing"
+  version = "" //required
+  application_code = "" //required
+  environment = "" //required (dev,QA,UAT)
+  request_type_id = "" //required 
+  db_instance_type = "" //required 
+  request_from = "1" //required (1 for API)
+  source_server_name = "" //required 
+  destination_server = "" //required 
+  source_database_name = "" //required 
+  destination_database_name = "" //required 
+  dbs_dbnameto_restore = "" //required 
+  service_account = "" //required 
+  server_type = "" //required 
+  edrive_size = "" //required 
+  request_raised_by ="" //required (email)
+  purpose = "" //required
+  endpoint = "" //optional
 }
 
 output "request_ID" {
