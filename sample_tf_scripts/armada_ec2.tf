@@ -27,3 +27,5 @@ output "request_ID" {
 	value = ["${dbaas_EC2.dev_ec2.*.service_request_id_out}"]
 	// service_request_id_out is a computed variable
 }
+
+// Every value you provide is a string and must be enclosed in a "".

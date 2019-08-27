@@ -25,3 +25,5 @@ output "rds_request_ID" {
 	value = ["${armada_rds.dev_rds.*.service_request_id_out}"]
 	// service_request_id_out is a computed variable
 }
+
+// Every value you provide is a string and must be enclosed in a "".
