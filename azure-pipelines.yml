@@ -22,12 +22,11 @@ steps:
     mkdir -p '$(modulePath)'
     shopt -s extglob
     shopt -s dotglob
-    mv !(gopath) '$(modulePath)'
+    mv !(gopath)/armada '$(modulePath)'
     pwd
     ls
+    echo 'modulepath'
     cd '$(modulePath)'
-    ls
-    cd armada
     ls -ltr
     cd 
     echo '##vso[task.prependpath]$(GOBIN)'
