@@ -10,7 +10,7 @@ type dbaasCreds struct {
 	secret_key string
 }
 
-func armadaProvider() terraform.ResourceProvider {
+func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
 		Schema: armadaSchema(),
 		ResourcesMap: map[string]*schema.Resource{
