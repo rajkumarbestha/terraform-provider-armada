@@ -35,10 +35,11 @@ steps:
     go version
     go get github.com/hashicorp/terraform
     go get github.com/aws/aws-sdk-go/aws
+    go get github.com/rajkumarbestha/terraform-provider-armada/provider
     if [ -f Gopkg.toml ]; then
         curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
         dep ensure
     fi
     go build -o terraform-provider-armada.exe
-  workingDirectory: '$(modulePath)/provider/'
+  workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
