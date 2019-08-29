@@ -25,6 +25,7 @@ steps:
     mv !(gopath) '$(modulePath)'
     pwd
     cd '$(modulePath)'
+    cd provider
     ls -ltr
     echo '##vso[task.prependpath]$(GOBIN)'
     echo '##vso[task.prependpath]$(GOROOT)/bin'
