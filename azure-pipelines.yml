@@ -22,7 +22,16 @@ steps:
     mkdir -p '$(modulePath)'
     shopt -s extglob
     shopt -s dotglob
+    echo PWD
+    pwd
+    echo List
+    ls -ltr
+    echo moved
     mv !(gopath) '$(modulePath)'
+    cd '$(modulePath)'
+    echo in modulepath
+    echo List    
+    ls -ltr
     echo '##vso[task.prependpath]$(GOBIN)'
     echo '##vso[task.prependpath]$(GOROOT)/bin'
   displayName: 'Set up the Go workspace'
