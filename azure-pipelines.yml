@@ -22,11 +22,6 @@ steps:
     mkdir -p '$(modulePath)'
     shopt -s extglob
     shopt -s dotglob
-    mv !(gopath) '$(modulePath)'
-    pwd
-    cd '$(modulePath)'
-    cd provider
-    ls -ltr
     echo '##vso[task.prependpath]$(GOBIN)'
     echo '##vso[task.prependpath]$(GOROOT)/bin'
   displayName: 'Set up the Go workspace'
@@ -35,11 +30,11 @@ steps:
     go version
     go get github.com/hashicorp/terraform
     go get github.com/aws/aws-sdk-go/aws
-    go get github.com/rajkumarbestha/terraform-provider-armada/provider
+    go get -d github.com/rajkumarbestha/terraform-provider-armada/armada
     if [ -f Gopkg.toml ]; then
         curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
         dep ensure
     fi
     go build -o terraform-provider-armada.exe
-  workingDirectory: '$(modulePath)'
+  workingDirectory: '$(GOPATH)'
   displayName: 'Get dependencies, then build'
