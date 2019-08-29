@@ -1,4 +1,4 @@
-package main
+package armada
 
 import (
 	"github.com/hashicorp/terraform/helper/schema"
@@ -14,9 +14,9 @@ func armadaProvider() terraform.ResourceProvider {
 	return &schema.Provider{
 		Schema: armadaSchema(),
 		ResourcesMap: map[string]*schema.Resource{
-			"armada_ec2":      armada_ec2(),
-			"armada_rds":      armada_rds(),
-			"armada_dynamodb": armada_dynamodb(),
+			"armada_ec2":      armadaEc2(),
+			"armada_rds":      armadaRds(),
+			"armada_dynamodb": armadaDynamodb(),
 		},
 		ConfigureFunc: providerConfiguration,
 	}

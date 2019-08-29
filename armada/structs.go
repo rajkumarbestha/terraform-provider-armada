@@ -1,4 +1,4 @@
-package main
+package armada
 
 type DummyResponse struct {
 	RequestID string
