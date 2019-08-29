@@ -33,7 +33,8 @@ steps:
 
 - script: |
     go version
-    go get -d ./...
+    go get github.com/hashicorp/terraform
+    go get github.com/aws/aws-sdk-go/aws
     if [ -f Gopkg.toml ]; then
         curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
         dep ensure
