@@ -13,7 +13,7 @@ variables:
   GOBIN:  '$(GOPATH)/bin' # Go binaries path
   GOROOT: '/usr/local/go1.11' # Go installation path
   GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
-  modulePath: '/home/vsts/work/1/s/$(build.repository.name)/provider' # Path to the module's code
+  modulePath: '/home/vsts/work/1/s/terraform-provider-armada/provider' # Path to the module's code
 
 steps:
 - script: |
