@@ -53,6 +53,12 @@ steps:
     archiveType: 'zip' 
     archiveFile: 'terraform-provider-armada.zip'
 
+- task: DownloadSecureFile@1
+  name: /home/vsts/work/1/s/terraform-provider-armada
+  displayName: 'Download Plugin'
+  inputs:
+    secureFile: '/home/vsts/work/1/s/terraform-provider-armada.zip'
+
 
 
 
