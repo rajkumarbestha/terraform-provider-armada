@@ -46,3 +46,15 @@ steps:
     go build -v .
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(modulePath)/terraform-provider-armada.exe'
+    archiveType: 'zip' 
+    archiveFile: '$(modulePath)/terraform-provider-armada.exe'
+
+
+
+
+
+
