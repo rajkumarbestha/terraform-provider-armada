@@ -51,7 +51,7 @@ steps:
   inputs:
     rootFolderOrFile: '$(modulePath)/terraform-provider-armada.exe'
     archiveType: 'zip' 
-    archiveFile: '$(modulePath)/terraform-provider-armada.exe'
+    archiveFile: 'terraform-provider-armada.zip'
 
 
 
