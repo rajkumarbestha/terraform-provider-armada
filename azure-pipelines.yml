@@ -53,11 +53,12 @@ steps:
     archiveType: 'zip' 
     archiveFile: 'terraform-provider-armada.zip'
 
-- task: DownloadSecureFile@1
-  name: terraform_provider_armada
-  displayName: 'Download Plugin'
+- task: PublishBuildArtifacts@1
   inputs:
-    secureFile: '/home/vsts/work/1/s/terraform-provider-armada.zip'
+    pathtoPublish: 'terraform-provider-armada.zip'
+    artifactName: 'drop' 
+    publishLocation: 'Container' # Options: container, filePath
+    #targetPath: # Required when publishLocation == FilePath
 
 
 
