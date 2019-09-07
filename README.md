@@ -17,7 +17,7 @@ Developing the Provider
 
 If you wish to work on the provider, you'll first need [Go](http://www.golang.org) installed on your machine (please check the [requirements](https://github.com/rajkumarbestha/terraform-provider-customplugin#requirements) before proceeding).
 
-To build the plugin through the pipeline, you can use [azurepipeline.yml](https://github.com/rajkumarbestha/terraform-provider-armada/azurebuildpipeline) and download the Artifact (plugin) directly after the build succeeds.
+To build the plugin through the pipeline, you can use [azurepipeline.yml](https://github.com/rajkumarbestha/terraform-provider-armada/blob/master/azurebuildpipeline/azure-pipelines.yml) and download the Artifact (plugin) directly after the build succeeds.
 
 Or if you wish to build it locally, clone the repo, install the dependencies and build.
 
