@@ -40,7 +40,7 @@ To use a released provider in your Terraform environment, run [`terraform init`]
 
 To instead use a custom-built provider (as above) in your Terraform environment (e.g. the provider binary from the build instructions above), follow the instructions to [install it as a plugin.](https://www.terraform.io/docs/plugins/basics.html#installing-a-plugin) Or else for a quick workthrough, place the plugin(.exe) from the repo in the same directory as the terraform binary or place it in your current directory from where you are running the terraform scripts, and run `terraform init` to initialize it.
 
-For either installation method, documentation about the provider specific configuration options can be found on the [provider's website](https://www.terraform.io/docs/providers/aws/index.html).
+Happy Terraforming! :)
 
 Contributing
 ---------------------------
