@@ -17,10 +17,14 @@ Developing the Provider
 
 If you wish to work on the provider, you'll first need [Go](http://www.golang.org) installed on your machine (please check the [requirements](https://github.com/rajkumarbestha/terraform-provider-customplugin#requirements) before proceeding).
 
-Clone repository to: `somepath/development/terraform-providers/`
+To build the plugin through the pipeline, you can use [azurepipeline.yml](https://github.com/rajkumarbestha/terraform-provider-armada/azurebuildpipeline) and download the Artifact (plugin) directly after the build succeeds.
+
+Or if you wish to build it locally, clone the repo, install the dependencies and build.
+
+Clone repository to: `somepath/terraform-providers/`
 
 ```
-mkdir -p somepath/development/terraform-providers/; cd somepath/development/terraform-providers/
+mkdir -p somepath/terraform-providers/; cd somepath/terraform-providers/
 git clone https://github.com/rajkumarbestha/terraform-provider-armada.git
 ```
 To compile the provider, enter the provider directory in the repo and run the below command. This will build the provider and put the provider binary in the current directory.
