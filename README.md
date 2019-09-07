@@ -40,6 +40,26 @@ To use a released provider in your Terraform environment, run [`terraform init`]
 
 To instead use a custom-built provider (as above) in your Terraform environment (e.g. the provider binary from the build instructions above), follow the instructions to [install it as a plugin.](https://www.terraform.io/docs/plugins/basics.html#installing-a-plugin) Or else for a quick workthrough, place the plugin(.exe) from the repo in the same directory as the terraform binary or place it in your current directory from where you are running the terraform scripts, and run `terraform init` to initialize it.
 
+After initializing the custom plugin, you might want to write terraform scripts, these simple points will make you familiar with this plugin.
+
+1. Provider Block:
+
+```
+provider "armada"{
+   // AK and SK.
+}
+```
+
+2. Resource Block:
+
+```
+resource "armada_ec2" "dev_ec2__test"{
+   // required fields.
+}
+```
+
+To know about the resources and the fields this plugin supports, please have a look at this [sample terraform scripts](https://github.com/rajkumarbestha/terraform-provider-armada/examples). These scripts will make you familiar with the plugin easily.
+
 Happy Terraforming! :)
 
 Contributing
