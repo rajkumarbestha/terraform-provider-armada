@@ -58,7 +58,7 @@ resource "armada_ec2" "dev_ec2__test"{
 }
 ```
 
-To know about the resources and the fields this plugin supports, please have a look at this [sample terraform scripts](https://github.com/rajkumarbestha/terraform-provider-armada/examples). These scripts will make you familiar with the plugin easily.
+To know about the resources and the fields this plugin supports, please have a look at this [sample terraform scripts](https://github.com/rajkumarbestha/terraform-provider-armada/tree/master/examples). These scripts will make you familiar with the plugin easily.
 
 Happy Terraforming! :)
 
