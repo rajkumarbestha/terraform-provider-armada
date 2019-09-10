@@ -106,14 +106,16 @@ func armadaEc2() *schema.Resource {
 
 func createEC2(d *schema.ResourceData, meta interface{}) error {
 	// Logging.
-	file, err := os.OpenFile("logs/ec2_create.log", os.O_CREATE|os.O_APPEND, 0666)
+	CreateDirIfNotExist("logs")
+	file, err := os.OpenFile("logs/create_resource.log", os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
+	log.SetFlags(log.Lshortfile)
 	log.SetOutput(file)
 
-	log.Printf("Terraform apply command given and control is in resource create function. \r\n")
+	log.Printf("Terraform apply command given and control is in ec2 resource create function. \r\n")
 
 	// Make a request object.
 	ec2CreateReq := make(map[string]interface{})
@@ -157,7 +159,9 @@ func createEC2(d *schema.ResourceData, meta interface{}) error {
 		meta.(*dbaasCreds).secret_key,
 		""))
 	awsAuth.Sign(req, bytes.NewReader(ec2CreateJson), "execute-api", "us-east-1", time.Now())
-	log.Printf("Signed.")
+	log.Printf("Signed and stopped for 5 seconds.")
+	time.Sleep(5000 * time.Millisecond)
+	log.Printf("Started.")
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -204,11 +208,13 @@ func updateEC2(d *schema.ResourceData, meta interface{}) error {
 
 func deleteEC2(d *schema.ResourceData, meta interface{}) error {
 	// Logging.
-	file, err := os.OpenFile("logs/ec2_destroy.log", os.O_CREATE|os.O_APPEND, 0666)
+	CreateDirIfNotExist("logs")
+	file, err := os.OpenFile("logs/destroy_resource.log", os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
+	log.SetFlags(log.Lshortfile)
 	log.SetOutput(file)
 
 	// Create Request.
@@ -224,7 +230,9 @@ func deleteEC2(d *schema.ResourceData, meta interface{}) error {
 		meta.(*dbaasCreds).secret_key,
 		""))
 	awsAuth.Sign(req, nil, "execute-api", "us-east-1", time.Now())
-	log.Printf("Signed.")
+	log.Printf("Signed and stopped for 3 seconds.")
+	time.Sleep(3000 * time.Millisecond)
+	log.Printf("Started.")
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
