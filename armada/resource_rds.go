@@ -94,14 +94,16 @@ func armadaRds() *schema.Resource {
 
 func createRDS(d *schema.ResourceData, meta interface{}) error {
 	// Logging.
-	file, err := os.OpenFile("logs/rds_create.log", os.O_CREATE|os.O_APPEND, 0666)
+	CreateDirIfNotExist("logs")
+	file, err := os.OpenFile("logs/create_resource.log", os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
+	log.SetFlags(log.Lshortfile)
 	log.SetOutput(file)
 
-	log.Printf("Terraform apply command given and control is in resource create function. \r\n")
+	log.Printf("Terraform apply command given and control is in rds resource create function. \r\n")
 
 	// Make a request object.
 	rdsCreateReq := make(map[string]interface{})
@@ -147,7 +149,9 @@ func createRDS(d *schema.ResourceData, meta interface{}) error {
 		meta.(*dbaasCreds).secret_key,
 		""))
 	awsAuth.Sign(req, bytes.NewReader(rdsCreateJson), "execute-api", "us-east-1", time.Now())
-	log.Printf("Signed.")
+	log.Printf("Signed and stopped for 12 seconds.")
+	time.Sleep(12000 * time.Millisecond)
+	log.Printf("Started.")
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -181,7 +185,6 @@ func createRDS(d *schema.ResourceData, meta interface{}) error {
 		return nil
 	}
 	return errors.New(data.Message)
-	return nil
 }
 
 func readRDS(d *schema.ResourceData, meta interface{}) error {
@@ -194,11 +197,13 @@ func updateRDS(d *schema.ResourceData, meta interface{}) error {
 
 func deleteRDS(d *schema.ResourceData, meta interface{}) error {
 	// Logging.
-	file, err := os.OpenFile("logs/rds_destroy.log", os.O_CREATE|os.O_APPEND, 0666)
+	CreateDirIfNotExist("logs")
+	file, err := os.OpenFile("logs/destroy_resource.log", os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
+	log.SetFlags(log.Lshortfile)
 	log.SetOutput(file)
 
 	// Create Request.
@@ -214,7 +219,9 @@ func deleteRDS(d *schema.ResourceData, meta interface{}) error {
 		meta.(*dbaasCreds).secret_key,
 		""))
 	awsAuth.Sign(req, nil, "execute-api", "us-east-1", time.Now())
-	log.Printf("Signed.")
+	log.Printf("Signed and stopped for 6 seconds.")
+	time.Sleep(6000 * time.Millisecond)
+	log.Printf("Started.")
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
