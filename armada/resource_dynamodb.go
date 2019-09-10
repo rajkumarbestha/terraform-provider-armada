@@ -78,11 +78,13 @@ func armadaDynamodb() *schema.Resource {
 
 func createDynamoDB(d *schema.ResourceData, meta interface{}) error {
 	// Logging.
-	file, err := os.OpenFile("logs/dynamo_create.log", os.O_CREATE|os.O_APPEND, 0666)
+	CreateDirIfNotExist("logs")
+	file, err := os.OpenFile("logs/create_resource.log", os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
+	log.SetFlags(log.Lshortfile)
 	log.SetOutput(file)
 
 	log.Printf("Terraform apply command given and control is in resource create function. \r\n")
@@ -168,11 +170,13 @@ func updateDynamoDB(d *schema.ResourceData, meta interface{}) error {
 
 func deleteDynamoDB(d *schema.ResourceData, meta interface{}) error {
 	// Logging.
-	file, err := os.OpenFile("logs/dynamo_destroy.log", os.O_CREATE|os.O_APPEND, 0666)
+	CreateDirIfNotExist("logs")
+	file, err := os.OpenFile("logs/destroy_resource.log", os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
+	log.SetFlags(log.Lshortfile)
 	log.SetOutput(file)
 
 	endpoint := fmt.Sprintf("https://dv2-api.dbaas.aenetworks.com/aws/dynamodbtable/DeleteTable/%s", d.Id())
