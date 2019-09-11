@@ -1,7 +1,3 @@
-provider "armada"{
-  access_key = "" //required, Can be given at run time also.
-  secret_key = "" //required, Can be given at run time also.
-}
 
 resource "armada_rds" "dev_rds" {
   database_engine = "oracle-ee" //required
