@@ -230,8 +230,8 @@ func deleteEC2(d *schema.ResourceData, meta interface{}) error {
 		meta.(*dbaasCreds).secret_key,
 		""))
 	awsAuth.Sign(req, nil, "execute-api", "us-east-1", time.Now())
-	log.Printf("Signed and stopped for 3 seconds.")
-	time.Sleep(3000 * time.Millisecond)
+	log.Printf("Signed and stopped for 2 seconds.")
+	time.Sleep(2000 * time.Millisecond)
 	log.Printf("Started.")
 
 	client := &http.Client{}

@@ -219,8 +219,8 @@ func deleteRDS(d *schema.ResourceData, meta interface{}) error {
 		meta.(*dbaasCreds).secret_key,
 		""))
 	awsAuth.Sign(req, nil, "execute-api", "us-east-1", time.Now())
-	log.Printf("Signed and stopped for 6 seconds.")
-	time.Sleep(6000 * time.Millisecond)
+	log.Printf("Signed and stopped for 4 seconds.")
+	time.Sleep(4000 * time.Millisecond)
 	log.Printf("Started.")
 
 	client := &http.Client{}
