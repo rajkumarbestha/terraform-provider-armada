@@ -5,11 +5,6 @@ import (
 	"github.com/hashicorp/terraform/terraform"
 )
 
-type dbaasCreds struct {
-	access_key string
-	secret_key string
-}
-
 func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
 		Schema: armadaSchema(),
@@ -23,8 +18,9 @@ func Provider() terraform.ResourceProvider {
 }
 
 func providerConfiguration(d *schema.ResourceData) (interface{}, error) {
-	return &dbaasCreds{
+	return &armadaCreds{
 		access_key: d.Get("access_key").(string),
 		secret_key: d.Get("secret_key").(string),
+		endpoint: d.Get("endpoint").(string),
 	}, nil
 }
