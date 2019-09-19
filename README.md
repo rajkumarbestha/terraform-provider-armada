@@ -6,7 +6,6 @@ Terraform Provider Armada
 <img src="https://cdn.rawgit.com/hashicorp/terraform-website/master/content/source/assets/images/logo-hashicorp.svg" width="600px">
 This is a custom plugin implementation of a Terraform Provider Armada, made using go.
 
-Azure Pipeline
 [![Build Status](https://dev.azure.com/rajrocksdeworld/Sample_GO/_apis/build/status/Sample_GO-Go%20(preview)-CI?branchName=master)](https://dev.azure.com/rajrocksdeworld/Sample_GO/_build/latest?definitionId=3&branchName=master)
 
 Requirements
