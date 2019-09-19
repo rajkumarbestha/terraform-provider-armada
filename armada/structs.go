@@ -1,4 +1,4 @@
-package armada
+package main
 
 type DummyResponse struct {
 	RequestID string
@@ -16,6 +16,13 @@ type DeleteResponse struct {
 	StatusCode      int         `json:"statusCode"`
 	Data            interface{} `json:"data"`
 }
+
+type armadaCreds struct {
+	access_key string
+	secret_key string
+	endpoint string
+}
+
 
 type EC2CreateRequest struct {
 	aws_region         string
