@@ -14,5 +14,9 @@ func armadaSchema() map[string]*schema.Schema {
 			Type:     schema.TypeString,
 			Required: true,
 		},
+		"endpoint": &schema.Schema{
+			Type:     schema.TypeString,
+			Required: true,
+		},
 	}
 }
