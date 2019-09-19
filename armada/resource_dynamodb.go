@@ -1,4 +1,4 @@
-package armada
+package main
 
 import (
 	"bytes"
@@ -64,10 +64,6 @@ func armadaDynamodb() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 			},
-			"endpoint": &schema.Schema{
-				Type:     schema.TypeString,
-				Optional: true,
-			},
 			"service_request_id_out": &schema.Schema{
 				Type:     schema.TypeString,
 				Computed: true,
@@ -106,11 +102,11 @@ func createDynamoDB(d *schema.ResourceData, meta interface{}) error {
 	dynamoCreateJson, err := json.Marshal(dynamoCreateReq)
 	log.Printf("Json Obtained %s", string(dynamoCreateJson))
 
-	//endpoint := "https://1w3zqo2l9i.execute-api.us-east-1.amazonaws.com/default/python_lambda"
-	endpoint := "https://dv2-api.dbaas.aenetworks.com/aws/dynamodbtable/createtable"
-	endpoint_from_tf := d.Get("endpoint").(string)
+	//endpoint := "https://1w3zqo2l9i.execute-api.us-east-1.amazonaws.com/default/python_lambda" for testing.
+	endpoint := "/dynamodbtable/createtable"
+	endpoint_from_tf := meta.(*armadaCreds).endpoint
 	if len(endpoint_from_tf) > 0 {
-		endpoint = endpoint_from_tf
+		endpoint = endpoint_from_tf+endpoint
 	}
 	log.Printf("endpoint %s", endpoint)
 	req, err := http.NewRequest("POST", endpoint, nil)
@@ -120,8 +116,8 @@ func createDynamoDB(d *schema.ResourceData, meta interface{}) error {
 
 	// AWS IAM AUTH.
 	awsAuth := v4.NewSigner(credentials.NewStaticCredentials(
-		meta.(*dbaasCreds).access_key,
-		meta.(*dbaasCreds).secret_key,
+		meta.(*armadaCreds).access_key,
+		meta.(*armadaCreds).secret_key,
 		""))
 	awsAuth.Sign(req, bytes.NewReader(dynamoCreateJson), "execute-api", "us-east-1", time.Now())
 	log.Printf("Signed.")
@@ -178,8 +174,12 @@ func deleteDynamoDB(d *schema.ResourceData, meta interface{}) error {
 	defer file.Close()
 	log.SetFlags(log.Lshortfile)
 	log.SetOutput(file)
-
-	endpoint := fmt.Sprintf("https://dv2-api.dbaas.aenetworks.com/aws/dynamodbtable/DeleteTable/%s", d.Id())
+	endpoint :=fmt.Sprintf("/dynamodbtable/DeleteTable/%s", d.Id())
+	endpoint_from_tf := meta.(*armadaCreds).endpoint
+	if len(endpoint_from_tf) > 0 {
+		endpoint = endpoint_from_tf+endpoint
+	}
+	//endpoint := fmt.Sprintf("https://dv2-api.dbaas.aenetworks.com/aws/dynamodbtable/DeleteTable/%s", d.Id())
 	req, err := http.NewRequest("POST", endpoint, nil)
 	req.Header.Set("X-Custom-Header", "myvalue")
 	req.Header.Set("Content-Type", "application/json")
@@ -187,8 +187,8 @@ func deleteDynamoDB(d *schema.ResourceData, meta interface{}) error {
 
 	// AWS IAM AUTH.
 	awsAuth := v4.NewSigner(credentials.NewStaticCredentials(
-		meta.(*dbaasCreds).access_key,
-		meta.(*dbaasCreds).secret_key,
+		meta.(*armadaCreds).access_key,
+		meta.(*armadaCreds).secret_key,
 		""))
 	awsAuth.Sign(req, nil, "execute-api", "us-east-1", time.Now())
 	log.Printf("Signed the URL.")
